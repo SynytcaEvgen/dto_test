@@ -1,14 +1,11 @@
 import {
-  ValidateNested,
   IsBoolean,
+  ValidateNested,
   IsUUID,
-  IsDefined,
   IsOptional,
   Matches,
-  IsPositive,
-  Min,
   Max,
-  IsIn,
+  Min,
   IsString,
   IsNotEmpty,
   IsNumber,
@@ -16,19 +13,16 @@ import {
 import { Transform, Type } from 'class-transformer';
 
 import { FeeConfigAdminDto } from './fee-config.admin.dto';
-import { CurrencyConfigurationTypesEnum } from '@app/domain/enums';
 
-export class AddCurrencyConfigurationAdminDto {
-  @IsIn(Object.values(CurrencyConfigurationTypesEnum))
-  type: CurrencyConfigurationTypesEnum;
-
+export class UpdateCurrencyConfigurationAdminDto {
   @IsBoolean()
-  isEnabled = true;
+  @IsOptional()
+  isEnabled?: boolean;
 
-  @IsDefined()
+  @IsOptional()
   @ValidateNested()
   @Type(() => FeeConfigAdminDto)
-  fee: FeeConfigAdminDto;
+  fee?: FeeConfigAdminDto;
 
   @IsOptional()
   @ValidateNested()
@@ -36,7 +30,8 @@ export class AddCurrencyConfigurationAdminDto {
   affiliateIncome?: FeeConfigAdminDto;
 
   @IsUUID()
-  providerId: string;
+  @IsOptional()
+  providerId?: string;
 
   @IsOptional()
   @Matches(/^\s*(\d+Y)?\s*(\d+M)?\s*(\d+D)?\s*$/, {

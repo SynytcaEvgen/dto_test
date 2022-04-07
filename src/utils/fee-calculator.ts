@@ -1,6 +1,4 @@
-import { amountPrettifier } from '@nt-backend/core';
-
-import { FeeConfig } from '@app/domain';
+import { FeeConfig } from '../interface/fee-config.interface';
 
 export class FeeCalculator {
   static calculate(amount: number, feeConfig: FeeConfig): number {
@@ -25,8 +23,8 @@ export class FeeCalculator {
 
   private static calculatePercentage(amount: number, percent: number) {
     if (percent === 0) {
-      return 0.00;
+      return 0.0;
     }
-    return Math.max(amountPrettifier((amount * percent) / 100), 0.01);
+    return Math.max((amount * percent) / 100, 0.01);
   }
 }

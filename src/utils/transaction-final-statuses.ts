@@ -1,4 +1,4 @@
-import { TransactionStatusesEnum } from '../enums';
+import { TransactionStatusesEnum } from '../type/transaction-statuses.enum';
 
 export const TRANSACTION_FINAL_STATUSES: TransactionStatusesEnum[] = [
   TransactionStatusesEnum.FAILED,

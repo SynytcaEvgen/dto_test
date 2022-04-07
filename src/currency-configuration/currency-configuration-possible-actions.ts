@@ -1,5 +1,5 @@
-import { CurrencyConfigurationTypesEnum } from './type/currency-configuration-types.enum';
-import { TransactionTypesEnum } from './type/transaction-types.enum';
+import { CurrencyConfigurationTypesEnum } from '../type/currency-configuration-types.enum';
+import { TransactionTypesEnum } from '../type/transaction-types.enum';
 
 export const CURRENCY_CONFIGURATIONS_POSSIBLE_ACTIONS: Record<
   CurrencyConfigurationTypesEnum,
