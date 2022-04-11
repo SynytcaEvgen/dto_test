@@ -1,8 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CurrencyConfiguration } from './db/entity/currency-configuration.entity';
+import { Partner } from './db/entity/partner.entity';
+import { Terminal } from './db/entity/terminal.entity';
+import { ProcessingProvider } from './db/entity/processing-provider.entity';
+import { PartnerInformation } from './db/entity/partner-information.entity';
 import { QWModule } from './qw/qw.module';
 import { CurrencyConfigurationsModule } from './currency-configuration/currency-configuration.module';
+import { PartnerDashboardAccount } from './db/entity/partner-dashboard-account.entity';
+import { PartnerWhitelistedIp } from './db/entity/partner-whitelisted-ip.entity';
 
 @Module({
   imports: [
@@ -14,7 +20,15 @@ import { CurrencyConfigurationsModule } from './currency-configuration/currency-
       password: 'Maseratti2020',
       database: 'current_config',
       synchronize: true,
-      entities: [CurrencyConfiguration],
+      entities: [
+        CurrencyConfiguration,
+        Partner,
+        Terminal,
+        ProcessingProvider,
+        PartnerInformation,
+        PartnerDashboardAccount,
+        PartnerWhitelistedIp,
+      ],
     }),
     QWModule,
     CurrencyConfigurationsModule,
