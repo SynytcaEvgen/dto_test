@@ -19,7 +19,10 @@ import { CurrencyConfigurationOwnerType } from '../type/currency-configuration-o
 export class CurrencyConfigurationsAdminController {
   constructor(private readonly service: CurrencyConfigurationsAdminService) {}
 
-  @Post('partners/:id/currency-configurations/:currencyCode/:type')
+  @Post([
+    'partners/:id/currency-configurations/:currencyCode/:type',
+    'terminals/:id/currency-configurations/:currencyCode/:type',
+  ])
   async createPartnerCurrencyConfiguration(
     @Param('id') id: string,
     @Param('currencyCode') currencyCode: string,

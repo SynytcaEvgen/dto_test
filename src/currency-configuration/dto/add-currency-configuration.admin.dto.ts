@@ -37,20 +37,29 @@ export class AddCurrencyConfigurationAdminDto {
   @IsUUID()
   providerId: string;
 
+  // @IsOptional()
+  // @Matches(/^\s*(\d+Y)?\s*(\d+M)?\s*(\d+D)?\s*$/, {
+  //   message: 'Period fields should be like "1Y1M1D"',
+  // })
+  // rollingReservePeriod: string;
+
   @IsOptional()
+  @Transform(({ value: v }) => (!v ? '0D' : v))
   @Matches(/^\s*(\d+Y)?\s*(\d+M)?\s*(\d+D)?\s*$/, {
     message: 'Period fields should be like "1Y1M1D"',
   })
-  @Transform(({ value: v }) => (v === null ? (v = '0D') : v))
   rollingReservePeriod: string;
 
   @IsOptional()
   @IsNumber()
   @Min(0)
   @Max(1)
-  @Transform(({ value: v }) =>
-    typeof v === 'number' ? Number(v.toFixed(3)) : v,
-  )
+  @Transform(({ value: v }) => {
+    if (!v) {
+      return 0;
+    }
+    return typeof v === 'number' ? Number(v.toFixed(3)) : v;
+  })
   rollingReservePercentage: number;
 
   @IsOptional()

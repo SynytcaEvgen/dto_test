@@ -34,7 +34,7 @@ export class CurrencyConfigurationsAdminService {
     if (!(ownerType in this.ownerEntityTypes)) {
       throw new BadRequestException('Wrong owner type');
     }
-
+    this.cheackTerminal(ownerType);
     const owner = {
       createdAt: '2022-04-06T11:14:36.514Z',
       id: '0051cce2-a4d3-497e-8e73-b1a1ccd40bbc',
@@ -43,14 +43,9 @@ export class CurrencyConfigurationsAdminService {
       name: 'test 0604',
       updatedAt: '2022-04-06T11:14:36.514Z',
     };
-    dto.rollingReservePercentage = this.notNull(
-      dto.rollingReservePercentage,
-      0,
-    );
-    dto.rollingReservePeriod = this.notNull(dto.rollingReservePeriod, '0D');
     const configuration = this.currencyConfigurationRepository.create({
       ...dto,
-      [ownerType]: owner,
+      // [ownerType]: owner,
       currencyCode,
       // provider: {
       //   id: 'c995105d-0587-45af-98d4-cd77060489d8',
@@ -63,10 +58,11 @@ export class CurrencyConfigurationsAdminService {
 
     return this.currencyConfigurationRepository.save(configuration);
   }
-  private notNull<T>(value: T, def: T) {
-    if (value === null) {
-      return def;
+  private cheackTerminal(owner) {
+    if (owner === 'terminal') {
+      throw new BadRequestException(
+        'Currency configuration in the terminal temporarily blocked',
+      );
     }
-    return value;
   }
 }
