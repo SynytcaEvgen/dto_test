@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CoreModule } from '@nt-backend/core';
 import { CurrencyConfiguration } from './db/entity/currency-configuration.entity';
 import { Partner } from './db/entity/partner.entity';
 import { Terminal } from './db/entity/terminal.entity';
@@ -9,6 +10,7 @@ import { QWModule } from './qw/qw.module';
 import { CurrencyConfigurationsModule } from './currency-configuration/currency-configuration.module';
 import { PartnerDashboardAccount } from './db/entity/partner-dashboard-account.entity';
 import { PartnerWhitelistedIp } from './db/entity/partner-whitelisted-ip.entity';
+import { Groups } from './type/groups.enum';
 
 @Module({
   imports: [
@@ -29,6 +31,19 @@ import { PartnerWhitelistedIp } from './db/entity/partner-whitelisted-ip.entity'
         PartnerDashboardAccount,
         PartnerWhitelistedIp,
       ],
+    }),
+    CoreModule.registerDefault({
+      enableInterceptors: {
+        transform: null,
+      },
+      enablePipes: {
+        validation: {
+          transform: true,
+          transformOptions: {
+            enableImplicitConversion: true,
+          },
+        },
+      },
     }),
     QWModule,
     CurrencyConfigurationsModule,
