@@ -19,10 +19,10 @@ import { PartnerWhitelistedIp } from './db/entity/partner-whitelisted-ip.entity'
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'Maseratti2020',
-      database: 'current_config',
+      port: Number(process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       synchronize: true,
       entities: [
         CurrencyConfiguration,

@@ -2,13 +2,17 @@ version: "3.7"
 services:
   db:
     image: postgres:14
+    container_name: postgres_db
     restart: always
+    env_file:
+      - ./.env
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Maseratti2020
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - PGDATA
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
-volumes: 
-  pgdata: {}       
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"     
